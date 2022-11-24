@@ -8,10 +8,10 @@ use Value::Diff;
 subtest 'testing return values' => sub {
 	my $ret;
 
-	$ret = diff ('a', 'a');
+	$ret = diff('a', 'a');
 	is $ret, !!0, 'false value is really false';
 
-	$ret = diff ('a', 'b');
+	$ret = diff('a', 'b');
 	is $ret, !!1, 'true value is really true';
 };
 
