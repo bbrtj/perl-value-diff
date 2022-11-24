@@ -30,6 +30,9 @@ subtest 'testing hash - diff' => sub {
 	ok diff({a => 1, b => 2}, {a => 1}, \$out), 'hashes differ when first hash has extra elements';
 	is_deeply $out, {b => 2}, 'diff ok';
 
+	ok diff({a => 1, b => undef}, {a => 1}, \$out), 'not existing keys are handled correctly';
+	is_deeply $out, {b => undef}, 'diff ok';
+
 	ok diff({a => 2, b => undef}, {a => 2, b => 'test'}, \$out),
 		'hashes differ when one element differs (out of two)';
 	is_deeply $out, {b => undef}, 'diff ok';
