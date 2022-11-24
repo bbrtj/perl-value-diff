@@ -71,8 +71,6 @@ elements, but that could be very intensive to find out. For the time being this
 behavior will stay as it is, but may be changed in the future to be more
 precise.
 
-=back
-
 =head1 SEE ALSO
 
 =over
