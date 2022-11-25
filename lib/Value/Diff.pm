@@ -119,5 +119,5 @@ sub diff
 
 1;
 
-# ABSTRACT: find out the difference between two Perl values
+# ABSTRACT: find the difference between two Perl values
 
