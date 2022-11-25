@@ -5,7 +5,6 @@ use strict;
 use warnings;
 
 use Exporter qw(import);
-use Carp qw(croak);
 
 our @EXPORT = qw(diff);
 
@@ -67,6 +66,17 @@ sub _diff_scalar
 	return _has_diff($diff) ? \$diff : $no_diff;
 }
 
+sub _diff_other
+{
+	my ($left, $right) = @_;
+
+	return $left
+		if defined $left ne defined $right
+		|| (defined $left && $left ne $right);
+
+	return $no_diff;
+}
+
 sub _diff
 {
 	my ($left, $right) = @_;
@@ -76,17 +86,8 @@ sub _diff
 	return $left if $ref_left ne $ref_right;
 	return _diff_array($left, $right) if $ref_left eq 'ARRAY';
 	return _diff_hash($left, $right) if $ref_left eq 'HASH';
-	return _diff_scalar($left, $right) if $ref_left eq 'SCALAR';
-	return _diff_scalar($left, $right) if $ref_left eq 'REF';
-
-	croak "cannot compare references to $ref_left"
-		if $ref_left ne '';
-
-	return $left
-		if defined $left ne defined $right
-		|| (defined $left && $left ne $right);
-
-	return $no_diff;
+	return _diff_scalar($left, $right) if $ref_left eq 'SCALAR' || $ref_left eq 'REF';
+	return _diff_other($left, $right);
 }
 
 sub _empty_of_type

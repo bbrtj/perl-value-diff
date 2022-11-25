@@ -5,6 +5,14 @@ use warnings;
 use Test::More;
 use Value::Diff;
 
+subtest 'testing objects' => sub {
+	my $obj_a = bless {a => 1}, 'Value::Diff';
+	my $obj_b = bless {a => 1}, 'Value::Diff';
+
+	ok diff($obj_a, $obj_b), 'different objects can be compared (not as hash)';
+	ok !diff($obj_a, $obj_a), 'same object is equal to itself';
+};
+
 subtest 'testing mixed - no diff' => sub {
 	ok !diff({a => [1, 2, 3], b => \42, c => undef}, {a => [1, 2, 3], b => \42, c => undef}), 'mixed ok';
 };
